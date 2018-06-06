@@ -1,0 +1,12 @@
+program IDENT;
+var
+  IDENT, IDENT, IDENT : IDENT;
+begin
+for IDENT := NUM to IDENT do
+  if (IDENT[IDENT-NUM] > IDENT[IDENT]) then
+    begin
+      IDENT := IDENT[IDENT-NUM];
+      IDENT[IDENT-NUM] := IDENT[IDENT];
+      IDENT[IDENT] := IDENT
+    end
+end.

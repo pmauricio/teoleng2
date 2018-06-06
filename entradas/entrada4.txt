@@ -1,0 +1,4 @@
+PROGRAMA BubbleSort; var i, j, temp : Integer; begin 
+for j := 2 to i do if (numbers[j-1] > numbers[j]) then begin
+temp := numbers[j-1]; numbers[j-1] := numbers[j];
+numbers[j] := temp end End.

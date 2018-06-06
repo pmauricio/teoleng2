@@ -1,0 +1,8 @@
+PROGRAM ejemplo; 
+const c = 10; pi = 314; var x,y : real; w,z : integer; 
+Begin x := x + 1;
+if x > pi then 
+x := x + y; while (x < c) do
+begin if x <> 8 then begin
+w := c; y := x + y
+end else z := c + 1; c := c - 1 end; y := x div 2 End.

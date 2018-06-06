@@ -1,0 +1,24 @@
+program IDENT;
+const
+  IDENT = NUM;
+  IDENT = NUM;
+var
+  IDENT, IDENT : IDENT;
+  IDENT, IDENT : IDENT;
+begin
+IDENT := IDENT + NUM;
+if IDENT > IDENT then
+  IDENT := IDENT + IDENT;
+while (IDENT < IDENT) do
+  begin
+    if IDENT <> NUM then
+      begin
+        IDENT := IDENT;
+        IDENT := IDENT + IDENT
+      end
+    else
+      IDENT := IDENT + NUM;
+    IDENT := IDENT-NUM
+  end;
+IDENT := IDENT div NUM
+end.

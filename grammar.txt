@@ -1,0 +1,83 @@
+program -> PROGRAM ident​ SEMICOLON declarations BEGIN statementSequence END DOT,
+declarations -> constants ? types ? variables ?,
+constants -> 'const​' ident​ EQUAL constant SEMICOLON constants_aux|'',
+constants_aux -> ident EQUAL constant SEMICOLON constants_aux | '',
+
+types -> type​ ident​ EQUAL type SEMICOLON types_aux,
+types_aux -> ident​ EQUAL type SEMICOLON types_aux|'',
+
+variables -> VAR identifList COLON type SEMICOLON variables_aux|'',
+variables_aux ->  identifList COLON type SEMICOLON variables_aux|''
+
+statementSequence -> statement ( ";" statement ) *
+
+statement -> variable ASSIGN expression,
+statement -> WHILE expression DO statement
+statement -> REPEAT statementSequence UNTIL expression
+statement -> FOR variableIdentif ASSIGN expression (TO | DOWNTO) expression DO statement
+statement -> BEGIN statementSequence END
+statement -> IF expression THEN statement statement_aux
+statement_aux -> ELSE statement statement_aux|''
+expression -> simpleExpression ( relationalOperator simpleExpression ) ?
+simpleExpression -> ( '+' | '-'​ | '') term ( additionOperator term ) *
+term -> factor ( multiplicationOperator factor ) *
+factor -> variable | "number​" | "(" expression ")" | "not" factor
+relationalOperator -> "=" | "<>" | "<" | "<=" | ">" | ">="
+additionOperator -> "+​" | "-​" | "or​"
+multiplicationOperator -> "*​" | "/​" | "div​" | "mod​" | "and​"
+variable -> variableIdentif | variableArray
+variableIdentif -> "ident​"
+variableArray -> "ident​" "["​ expressionList "]"
+expressionList -> expression ( "," expression ) *
+type -> simpleType | arrayType | "ident​"
+simpleType -> constant ".." constant | "(" identifList ")"
+arrayType -> "array​" "[​" simpleType ( "," simpleType ) * "]​" "of​" type
+identifList -> "ident​" ( "," "ident​" ) *
+constant -> ("+​" | "-​" ) ? ("ident​" | "number​")
+
+ident -> [a-zA-Z]([a-zA-Z]|[0-9])*
+PROGRAM -> 'program' 
+BEGIN -> 'begin' 
+END -> 'end' 
+CONST -> 'const' 
+TYPE -> 'type' 
+VAR -> 'var' 
+DOT -> '.' 
+DOTDOT -> '..' 
+SEMICOLON -> ';' 
+COLON -> ':' 
+COMMA -> ',' 
+EQUAL -> '=' 
+DIFFERENT -> '<>' 
+LT -> '<' 
+GT -> '>' 
+LTE -> '<=' 
+GTE -> '>=' 
+ASSIGN -> ':=' 
+ADD -> '+' 
+SUB -> '-' 
+OR -> 'or' 
+ASTER -> '*' 
+BARRA -> '/' 
+DIV -> 'div' 
+MOD -> 'mod' 
+AND -> 'and' 
+WHILE -> 'while' 
+DO -> 'do' 
+REPEAT -> 'repeat' 
+UNTIL -> 'until' 
+FOR -> 'for' 
+TO -> 'to' 
+DOWNTO -> 'downto' 
+IF -> 'if' 
+THEN -> 'then' 
+ELSE -> 'else' 
+OPAR -> '(' 
+CPAR -> ')' 
+OSQRBRA -> '[' 
+CSQRBRA -> ']' 
+NOT -> 'not' 
+ARRAY -> 'array' 
+OF -> 'of' 
+IDENT -> 'ident' 
+NUMBER -> 'number' 
