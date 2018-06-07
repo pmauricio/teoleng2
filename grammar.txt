@@ -1,16 +1,12 @@
-program -> PROGRAM ident​ SEMICOLON declarations BEGIN statementSequence END DOT,
-declarations -> constants ? types ? variables ?,
-constants -> 'const​' ident​ EQUAL constant SEMICOLON constants_aux|'',
-constants_aux -> ident EQUAL constant SEMICOLON constants_aux | '',
-
-types -> type​ ident​ EQUAL type SEMICOLON types_aux,
-types_aux -> ident​ EQUAL type SEMICOLON types_aux|'',
-
-variables -> VAR identifList COLON type SEMICOLON variables_aux|'',
+S -> PROGRAM ident​ SEMICOLON declarations BEGIN statementSequence END DOT
+declarations -> constants ? types ? variables ?
+constants -> 'const​' ident​ EQUAL constant SEMICOLON constants_aux|''
+constants_aux -> ident EQUAL constant SEMICOLON constants_aux | ''
+types -> type​ ident​ EQUAL type SEMICOLON types_aux
+types_aux -> ident​ EQUAL type SEMICOLON types_aux|''
+variables -> VAR identifList COLON type SEMICOLON variables_aux|''
 variables_aux ->  identifList COLON type SEMICOLON variables_aux|''
-
-statementSequence -> statement ( ";" statement ) *
-
+statementSequence -> statement ( SEMICOLON	 statement ) *
 statement -> variable ASSIGN expression,
 statement -> WHILE expression DO statement
 statement -> REPEAT statementSequence UNTIL expression
@@ -19,21 +15,21 @@ statement -> BEGIN statementSequence END
 statement -> IF expression THEN statement statement_aux
 statement_aux -> ELSE statement statement_aux|''
 expression -> simpleExpression ( relationalOperator simpleExpression ) ?
-simpleExpression -> ( '+' | '-'​ | '') term ( additionOperator term ) *
+simpleExpression -> ( ADD | SUB | '') term ( additionOperator term ) *
 term -> factor ( multiplicationOperator factor ) *
-factor -> variable | "number​" | "(" expression ")" | "not" factor
-relationalOperator -> "=" | "<>" | "<" | "<=" | ">" | ">="
-additionOperator -> "+​" | "-​" | "or​"
-multiplicationOperator -> "*​" | "/​" | "div​" | "mod​" | "and​"
+factor -> variable | 'number​' | OPAR expression CPAR | "not" factor
+relationalOperator -> EQUAL | DIFFERENT | LT | LTE | GT | GTE
+additionOperator -> ADD | SUB | OR
+multiplicationOperator -> ASTER | BARRA | DIV | MOD | AND
 variable -> variableIdentif | variableArray
-variableIdentif -> "ident​"
-variableArray -> "ident​" "["​ expressionList "]"
-expressionList -> expression ( "," expression ) *
-type -> simpleType | arrayType | "ident​"
-simpleType -> constant ".." constant | "(" identifList ")"
-arrayType -> "array​" "[​" simpleType ( "," simpleType ) * "]​" "of​" type
-identifList -> "ident​" ( "," "ident​" ) *
-constant -> ("+​" | "-​" ) ? ("ident​" | "number​")
+variableIdentif -> ident​
+variableArray -> ident​ OSQRBRA expressionList CSQRBRA
+expressionList -> expression ( COMMMA expression ) *
+type -> simpleType | arrayType | ident​
+simpleType -> constant DOTDOT constant | OPAR identifList CPAR
+arrayType -> ARRAY OSQRBRA simpleType ( COMMA simpleType ) * CSQRBRA OF type
+identifList -> ident​ ( COMMA ident​ ) *
+constant -> (ADD | SUB ) ? (ident​ | number​)
 
 ident -> [a-zA-Z]([a-zA-Z]|[0-9])*
 PROGRAM -> 'program' 
