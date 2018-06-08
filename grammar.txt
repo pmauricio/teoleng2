@@ -1,79 +1,36 @@
-S -> PROGRAM ident​ SEMICOLON declarations BEGIN statementSequence END DOT
-declarations -> constants ? types ? variables ?
-constants -> 'const​' ident​ EQUAL constant SEMICOLON constants_aux|''
-constants_aux -> ident EQUAL constant SEMICOLON constants_aux | ''
-types -> type​ ident​ EQUAL type SEMICOLON types_aux
-types_aux -> ident​ EQUAL type SEMICOLON types_aux|''
-variables -> VAR identifList COLON type SEMICOLON variables_aux|''
-variables_aux ->  identifList COLON type SEMICOLON variables_aux|''
-statementSequence -> statement ( SEMICOLON	 statement ) *
-statement -> variable ASSIGN expression,
-statement -> WHILE expression DO statement
-statement -> REPEAT statementSequence UNTIL expression
-statement -> FOR variableIdentif ASSIGN expression (TO | DOWNTO) expression DO statement
-statement -> BEGIN statementSequence END
-statement -> IF expression THEN statement statement_aux
-statement_aux -> ELSE statement statement_aux|''
-expression -> simpleExpression ( relationalOperator simpleExpression ) ?
-simpleExpression -> ( ADD | SUB | '') term ( additionOperator term ) *
-term -> factor ( multiplicationOperator factor ) *
-factor -> variable | 'number​' | OPAR expression CPAR | "not" factor
-relationalOperator -> EQUAL | DIFFERENT | LT | LTE | GT | GTE
-additionOperator -> ADD | SUB | OR
-multiplicationOperator -> ASTER | BARRA | DIV | MOD | AND
+program -> 'PROGRAM' 'IDENT' 'SEMICOLON' declarations 'BEGIN' statementSequence 'END' 'DOT'
+declarations -> constants types variables
+constants -> 'CONST' 'IDENT' 'EQUAL' constant 'SEMICOLON' constants_aux
+constants_aux -> 'IDENT' 'EQUAL' 'CONST' 'SEMICOLON' constants_aux|
+types -> 'TYPE' 'IDENT' 'EQUAL' type 'SEMICOLON' types_aux|
+types_aux -> 'IDENT' 'EQUAL' type 'SEMICOLON' types_aux|
+variables -> 'VAR' identifList 'COLON' type 'SEMICOLON' variables_aux|
+variables_aux ->  identifList 'COLON' type 'SEMICOLON' variables_aux|
+statementSequence -> statement statementSequence_aux|
+statementSequence_aux -> 'SEMICOLON' statement statementSequence_aux|
+statement -> variable 'ASSIGN' expression|'WHILE' expression 'DO' statement|'REPEAT' statementSequence 'UNTIL' expression| 'FOR' variableIdentif 'ASSIGN' expression to_or_downto expression 'DO' statement|'BEGIN' statementSequence 'END'|'IF' expression 'THEN' statement statement_aux
+to_or_downto -> 'TO'|'DOWNTO'
+statement_aux -> ELSE statement statement_aux|
+expression -> simpleExpression|simpleExpression relationalOperator simpleExpression 
+simpleExpression -> signo term simpleExpression_aux
+simpleExpression_aux -> additionOperator term simpleExpression_aux|
+signo -> 'ADD' | 'SUB' |
+term -> factor term_aux
+term_aux ->  multiplicationOperator factor|
+factor -> variable | 'NUMBER' | OPAR expression 'CPAR' | 'NOT' factor
+relationalOperator -> 'EQUAL' | 'DIFFERENT' | 'LT' | 'LTE' | 'GT' | 'GTE'
+additionOperator -> 'ADD' | 'SUB' | 'OR'
+multiplicationOperator -> 'ASTER' | 'BARRA' | 'DIV' | 'MOD' | 'AND'
 variable -> variableIdentif | variableArray
-variableIdentif -> ident​
-variableArray -> ident​ OSQRBRA expressionList CSQRBRA
-expressionList -> expression ( COMMMA expression ) *
-type -> simpleType | arrayType | ident​
-simpleType -> constant DOTDOT constant | OPAR identifList CPAR
-arrayType -> ARRAY OSQRBRA simpleType ( COMMA simpleType ) * CSQRBRA OF type
-identifList -> ident​ ( COMMA ident​ ) *
-constant -> (ADD | SUB ) ? (ident​ | number​)
-
-ident -> [a-zA-Z]([a-zA-Z]|[0-9])*
-PROGRAM -> 'program' 
-BEGIN -> 'begin' 
-END -> 'end' 
-CONST -> 'const' 
-TYPE -> 'type' 
-VAR -> 'var' 
-DOT -> '.' 
-DOTDOT -> '..' 
-SEMICOLON -> ';' 
-COLON -> ':' 
-COMMA -> ',' 
-EQUAL -> '=' 
-DIFFERENT -> '<>' 
-LT -> '<' 
-GT -> '>' 
-LTE -> '<=' 
-GTE -> '>=' 
-ASSIGN -> ':=' 
-ADD -> '+' 
-SUB -> '-' 
-OR -> 'or' 
-ASTER -> '*' 
-BARRA -> '/' 
-DIV -> 'div' 
-MOD -> 'mod' 
-AND -> 'and' 
-WHILE -> 'while' 
-DO -> 'do' 
-REPEAT -> 'repeat' 
-UNTIL -> 'until' 
-FOR -> 'for' 
-TO -> 'to' 
-DOWNTO -> 'downto' 
-IF -> 'if' 
-THEN -> 'then' 
-ELSE -> 'else' 
-OPAR -> '(' 
-CPAR -> ')' 
-OSQRBRA -> '[' 
-CSQRBRA -> ']' 
-NOT -> 'not' 
-ARRAY -> 'array' 
-OF -> 'of' 
-IDENT -> 'ident' 
-NUMBER -> 'number' 
+variableIdentif -> 'IDENT'
+variableArray -> 'IDENT' 'OSQRBRA' expressionList 'CSQRBRA'
+expressionList -> expression expressionList_aux
+expressionList_aux -> 'COMMMA' expression|
+type -> simpleType | arrayType | 'IDENT'
+simpleType -> constant 'DOTDOT' constant | 'OPAR' identifList 'CPAR'
+arrayType -> 'ARRAY' 'OSQRBRA' simpleType simpleType_aux 'CSQRBRA' 'OF' type
+simpleType_aux -> 'COMMA' simpleType|
+identifList -> 'IDENT' identifList_aux
+identifList_aux -> 'COMMA' 'IDENT' identifList_aux|
+constant -> signo constant_aux
+constant_aux -> 'IDENT'|'NUMBER'

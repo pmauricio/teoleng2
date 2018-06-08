@@ -76,11 +76,14 @@ if __name__ == '__main__':
     s = f.read()
     f.close()
     lista = [map_to_terminal(token) for token in tokenize(s)]
+    print (lista)
     parser = nltk.ChartParser(load_gramar())
     reconoce = False;
     tree = [t for t in parser.parse(lista)][:1]
+   
     f = open(archivo_salida, 'w')
     if tree:
+        print(tree)
         f.write(autoindent.print_indented(tree[0]))
     else:
         f.write("SINTAXIS INCORRECTA")
