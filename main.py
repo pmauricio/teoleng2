@@ -82,8 +82,8 @@ if __name__ == '__main__':
     tree = [t for t in parser.parse(lista)][:1]
    
     f = open(archivo_salida, 'w')
+#    print(tree)
     if tree:
-        print(tree)
         f.write(autoindent.print_indented(tree[0]))
     else:
         f.write("SINTAXIS INCORRECTA")

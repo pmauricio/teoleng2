@@ -81,6 +81,8 @@ def print_indented(tree):
     for i in range(1, depth(node)):
       tab = tab +' '
     if type(node) is Tree:
+      print ('------------'+str(depth(node)))
+      print (node.label)
       t = t + print_indented(node)
     else:
       t = t +  map_to_terminal(node)

@@ -1,6 +1,6 @@
 program -> 'PROGRAM' 'IDENT' 'SEMICOLON' declarations 'BEGIN' statementSequence 'END' 'DOT'
 declarations -> constants types variables
-constants -> 'CONST' 'IDENT' 'EQUAL' constant 'SEMICOLON' constants_aux
+constants -> 'CONST' 'IDENT' 'EQUAL' constant 'SEMICOLON' constants_aux|
 constants_aux -> 'IDENT' 'EQUAL' constant 'SEMICOLON' constants_aux|
 types -> 'TYPE' 'IDENT' 'EQUAL' type 'SEMICOLON' types_aux|
 types_aux -> 'IDENT' 'EQUAL' type 'SEMICOLON' types_aux|
@@ -8,15 +8,14 @@ variables -> 'VAR' identifList 'COLON' type 'SEMICOLON' variables_aux|
 variables_aux ->  identifList 'COLON' type 'SEMICOLON' variables_aux|
 statementSequence -> statement statementSequence_aux|
 statementSequence_aux -> 'SEMICOLON' statement statementSequence_aux|
-statement -> variable 'ASSIGN' expression|'WHILE' expression 'DO' statement|'REPEAT' statementSequence 'UNTIL' expression| 'FOR' variableIdentif 'ASSIGN' expression to_or_downto expression 'DO' statement|'BEGIN' statementSequence 'END'|'IF' expression 'THEN' statement statement_aux
+statement -> variable 'ASSIGN' expression|'WHILE' expression 'DO' statement|'REPEAT' statementSequence 'UNTIL' expression| 'FOR' variableIdentif 'ASSIGN' expression to_or_downto expression 'DO' statement|'BEGIN' statementSequence 'END'| 'IF' expression 'THEN' statement | 'IF' expression 'THEN' statement 'ELSE' statement
 to_or_downto -> 'TO'|'DOWNTO'
-statement_aux -> ELSE statement statement_aux|
-expression -> simpleExpression|simpleExpression relationalOperator simpleExpression 
+expression -> simpleExpression|simpleExpression relationalOperator simpleExpression |'OPAR' expression 'CPAR'
 simpleExpression -> signo term simpleExpression_aux
 simpleExpression_aux -> additionOperator term simpleExpression_aux|
 signo -> 'ADD' | 'SUB' |
 term -> factor term_aux
-term_aux ->  multiplicationOperator factor|
+term_aux ->  multiplicationOperator factor term_aux|
 factor -> variable | 'NUMBER' | OPAR expression 'CPAR' | 'NOT' factor
 relationalOperator -> 'EQUAL' | 'DIFFERENT' | 'LT' | 'LTE' | 'GT' | 'GTE'
 additionOperator -> 'ADD' | 'SUB' | 'OR'

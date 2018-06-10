@@ -1,1 +1,2 @@
-PROGRAM ejemplo; const c = 15; Begin y := x div 2 End.
+PROGRAM ejemplo; const c = 15; d = 25; var x,y : real; z : integer; Begin 
+if x > c then x := x + y; y := x div 2 End.
