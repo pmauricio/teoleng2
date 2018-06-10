@@ -1,7 +1,7 @@
 program -> 'PROGRAM' 'IDENT' 'SEMICOLON' declarations 'BEGIN' statementSequence 'END' 'DOT'
 declarations -> constants types variables
 constants -> 'CONST' 'IDENT' 'EQUAL' constant 'SEMICOLON' constants_aux
-constants_aux -> 'IDENT' 'EQUAL' 'CONST' 'SEMICOLON' constants_aux|
+constants_aux -> 'IDENT' 'EQUAL' constant 'SEMICOLON' constants_aux|
 types -> 'TYPE' 'IDENT' 'EQUAL' type 'SEMICOLON' types_aux|
 types_aux -> 'IDENT' 'EQUAL' type 'SEMICOLON' types_aux|
 variables -> 'VAR' identifList 'COLON' type 'SEMICOLON' variables_aux|
