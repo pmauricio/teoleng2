@@ -1,0 +1,1 @@
+program IDENT;  const  IDENT = NUM;  IDENT = NUM;  var  IDENT, IDENT:IDENT;  IDENT:IDENT;  begin  if IDENT > IDENT then  IDENT := IDENT + IDENT;  IDENT := IDENT div NUM  end.

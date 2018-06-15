@@ -1,0 +1,1 @@
+program IDENT;  var  IDENT, IDENT, IDENT:IDENT;  begin  for IDENT := NUMto IDENTdo  if (IDENT[IDENT - NUM] > IDENT[IDENT]) then  begin  IDENT := IDENT[IDENT - NUM];  IDENT[IDENT - NUM] := IDENT[IDENT];  IDENT[IDENT] := IDENT  end  end.
