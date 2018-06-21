@@ -35,7 +35,7 @@ reserved_words = {
     "NOT": " not ",
     "WHILE": "while ",
     "DO": " do\n",
-    "REPEAT": "repeat ",
+    "REPEAT": "repeat\n",
     "UNTIL": "until ",
     "FOR": "for " ,
     "TO": " to ",
@@ -122,9 +122,18 @@ def print_indented(tree):
         t = t + '\n' + identar(id)
         id = id - 1
         cantBegin = cantBegin - 1
-      if (node == 'DO') or  (node == 'REPEAT') or (node == 'THEN'):
+      if (node == 'DO') or (node == 'THEN'):
         beginInterno = False	
         id = id + 1	    
+      if (node == 'REPEAT'):	
+        beginInterno = True	
+        cantBegin = cantBegin + 1	    		
+        id = id + 1	    	    
+      if (node == 'UNTIL'):
+        cantBegin = cantBegin - 1
+        id = id - 1	
+        t = t + '\n' + identar(id)
+        beginInterno = False
       if (node == 'ELSE'):
         beginInterno = False	
         t = t + '\n' + identar(id)
